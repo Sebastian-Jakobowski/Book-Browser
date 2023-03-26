@@ -1,1 +1,9 @@
-<p>main works!</p>
+<h1>Book Browser</h1>
+    <mat-label>Book Title</mat-label>
+    <input [(ngModel)]="titleSearch" type="text" (keydown.enter)="showBooks(titleSearch)">
+    <button (click)="showBooks(titleSearch)">
+        Search
+    </button>
+<div *ngFor="let book of books">
+<img src="{{getCover(book.cover_i)}}" alt="{{book.title}}">
+</div>
