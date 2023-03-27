@@ -1,9 +1,26 @@
 <h1>Book Browser</h1>
+<div>
     <mat-label>Book Title</mat-label>
     <input [(ngModel)]="titleSearch" type="text" (keydown.enter)="showBooks(titleSearch)">
     <button (click)="showBooks(titleSearch)">
         Search
     </button>
-<div *ngFor="let book of books">
-<img src="{{getCover(book.cover_i)}}" alt="{{book.title}}">
-</div>
+    </div>
+    <mat-grid-list cols="5" rowHeight="1.75:1" gutterSize="10">
+        <mat-grid-tile *ngFor="let book of books | slice:0:100">
+            <ul style="list-style-type: none; width: 100%; align-items: flex-start;">
+                <li>
+                    <div style="float: right; margin-right: 10%;">
+                        <img src="{{getCover(book.cover_i, true)}}" alt="{{book.title}}" width="36" height="50">
+                    </div>
+                    <strong>Booktitle</strong>
+                    <p>{{book.title}}</p>
+                </li>
+                <li>
+                    <strong>Author</strong>
+                    <p *ngIf="book.author_name">{{book.author_name}}</p>
+                    <p *ngIf="!book.author_name">No name available<p>
+                    </li>
+            </ul>            
+            </mat-grid-tile>
+    </mat-grid-list>

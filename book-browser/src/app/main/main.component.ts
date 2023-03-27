@@ -26,8 +26,16 @@ export class MainComponent {
     .catch((reason) => console.log(reason));
   }
 
-  getCover(coverID: number): string {
-    return environment.api.coversopenlibrary + "/b/id/" + coverID + "-M.jpg";
+  getCover(coverID: number, isThumbnail: boolean): string {
+    if(coverID) {
+      if(isThumbnail && coverID){
+        return environment.api.coversopenlibrary + "/b/id/" + coverID + "-S.jpg";
+      } else {
+        return environment.api.coversopenlibrary + "/b/id/" + coverID + "-L.jpg";
+      }
+    } else {
+      return "https://www.lse.ac.uk/International-History/Images/Books/NoBookCover.png";
+    }
   }
 
 }
