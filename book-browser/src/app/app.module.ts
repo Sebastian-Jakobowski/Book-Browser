@@ -12,13 +12,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogCoverImageComponent } from './components/dialog-cover-image/dialog-cover-image.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DialogCoverImageComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

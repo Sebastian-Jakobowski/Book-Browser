@@ -23,4 +23,16 @@ export class BookService {
       })
     }))
   }
+
+  getCover(coverID: number, isThumbnail: boolean): string{
+    if(coverID) {
+      if(isThumbnail && coverID){
+        return environment.api.coversopenlibrary + "/b/id/" + coverID + "-S.jpg";
+      } else {
+        return environment.api.coversopenlibrary + "/b/id/" + coverID + "-L.jpg";
+      }
+    } else {
+      return "https://www.lse.ac.uk/International-History/Images/Books/NoBookCover.png";
+    }
+  }
 }

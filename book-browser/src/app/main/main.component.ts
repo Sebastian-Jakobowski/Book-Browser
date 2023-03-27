@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Book } from '../models/book-model';
 import { BookService } from '../services/book.service';
-import { environment } from 'src/app/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCoverImageComponent } from '../components/dialog-cover-image/dialog-cover-image.component';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ export class MainComponent {
   titleSearch!: string;
 
 
-  constructor(private bookService: BookService){
+  constructor(private bookService: BookService, public dialog: MatDialog){
   }
 
   ngOnInit(): void {
@@ -27,15 +28,12 @@ export class MainComponent {
   }
 
   getCover(coverID: number, isThumbnail: boolean): string {
-    if(coverID) {
-      if(isThumbnail && coverID){
-        return environment.api.coversopenlibrary + "/b/id/" + coverID + "-S.jpg";
-      } else {
-        return environment.api.coversopenlibrary + "/b/id/" + coverID + "-L.jpg";
-      }
-    } else {
-      return "https://www.lse.ac.uk/International-History/Images/Books/NoBookCover.png";
-    }
+    return this.bookService.getCover(coverID, isThumbnail);
   }
 
+  openDialog(coverID: number): void {
+    this.dialog.open(DialogCoverImageComponent, {
+      data: {coverID: coverID},
+    });
+  }
 }
