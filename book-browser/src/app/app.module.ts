@@ -13,7 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list'; 
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogCoverImageComponent } from './components/dialog-cover-image/dialog-cover-image.component'; 
+import { DialogCoverImageComponent } from './components/dialog-cover-image/dialog-cover-image.component';
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DialogCoverImageComponent } from './components/dialog-cover-image/dialo
     MatFormFieldModule,
     FormsModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

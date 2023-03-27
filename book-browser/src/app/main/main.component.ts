@@ -3,6 +3,7 @@ import { Book } from '../models/book-model';
 import { BookService } from '../services/book.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCoverImageComponent } from '../components/dialog-cover-image/dialog-cover-image.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-main',
@@ -12,6 +13,9 @@ import { DialogCoverImageComponent } from '../components/dialog-cover-image/dial
 export class MainComponent {
   books: Book[] | undefined;
   titleSearch!: string;
+  pageSizeOptions = [10, 20, 50];
+  pageStartIndex: number = 0;
+  pageEndIndex: number = 50;
 
 
   constructor(private bookService: BookService, public dialog: MatDialog){
@@ -35,5 +39,10 @@ export class MainComponent {
     this.dialog.open(DialogCoverImageComponent, {
       data: {coverID: coverID},
     });
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageStartIndex = e.pageSize * e.pageIndex;
+    this.pageEndIndex = this.pageStartIndex + e.pageSize;
   }
 }

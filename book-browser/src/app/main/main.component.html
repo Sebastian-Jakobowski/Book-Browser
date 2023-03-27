@@ -1,14 +1,15 @@
-<h1>Book Browser</h1>
-<div>
-    <mat-label>Book Title</mat-label>
-    <input [(ngModel)]="titleSearch" type="text" (keydown.enter)="showBooks(titleSearch)">
+<div style="text-align: center; margin-top: 2%; margin-bottom: 2%;">
+    <h1 style="font-size: xx-large;">Book Browser</h1>
+    <mat-label style="margin-right: 10px;">Book Title</mat-label>
+    <input style="margin-right: 10px;" [(ngModel)]="titleSearch"
+    type="text" (keydown.enter)="showBooks(titleSearch)">
     <button (click)="showBooks(titleSearch)">
         Search
     </button>
-    </div>
+</div>
 
     <mat-grid-list cols="5" rowHeight="1.75:1" gutterSize="10">
-        <mat-grid-tile *ngFor="let book of books | slice:0:100">
+        <mat-grid-tile *ngFor="let book of books | slice:pageStartIndex:pageEndIndex">
             <ul style="list-style-type: none; width: 100%; align-items: flex-start;">
                 <li>
                     <div style="float: right; margin-right: 10%;">
@@ -26,3 +27,10 @@
             </ul>            
             </mat-grid-tile>
     </mat-grid-list>
+    <mat-paginator *ngIf="books"
+               (page)="handlePageEvent($event)"
+               [length]="this.books.length"
+               [pageSize]="50"
+               [pageSizeOptions]="pageSizeOptions"
+               aria-label="Select page">
+</mat-paginator>
