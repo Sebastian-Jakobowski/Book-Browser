@@ -3,12 +3,23 @@
     <mat-label style="margin-right: 10px;">Book Title</mat-label>
     <input style="margin-right: 10px;" [(ngModel)]="titleSearch"
     type="text" (keydown.enter)="showBooks(titleSearch)">
-    <button (click)="showBooks(titleSearch)">
+    <button style="margin-right: 10px;" (click)="showBooks(titleSearch)">
         Search
     </button>
+    <section>
+        <label>Viewstyle:</label>
+        <mat-radio-group [(ngModel)]="viewStyle" color="primary">
+          <mat-radio-button value="grid">
+            Grid
+          </mat-radio-button>
+          <mat-radio-button value="list">
+            List
+          </mat-radio-button>
+        </mat-radio-group>
+        </section>
 </div>
 
-    <mat-grid-list cols="5" rowHeight="1.75:1" gutterSize="10">
+    <mat-grid-list *ngIf="viewStyle === 'grid'" cols="5" rowHeight="1.75:1" gutterSize="10">
         <mat-grid-tile *ngFor="let book of books | slice:pageStartIndex:pageEndIndex">
             <ul style="list-style-type: none; width: 100%; align-items: flex-start;">
                 <li>
@@ -27,6 +38,41 @@
             </ul>            
             </mat-grid-tile>
     </mat-grid-list>
+
+    <mat-table *ngIf="books && viewStyle=='list'" mat-elevation-z8 class="mat-elevation-z8" style="width: 90%;" [dataSource]="dataSource">
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Title </th>
+    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="isbn">
+    <th mat-header-cell *matHeaderCellDef> ISBN </th>
+    <td mat-cell *matCellDef="let element">{{element.isbn?element.isbn[0]:"No ISBN"}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="author_name">
+    <th mat-header-cell *matHeaderCellDef> Author </th>
+    <td mat-cell *matCellDef="let element"> {{element.author_name?element.author_name:"No Author"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="first_publish_year">
+    <th mat-header-cell *matHeaderCellDef> First Publication Year </th>
+    <td mat-cell *matCellDef="let element"> {{element.first_publish_year?element.first_publish_year:"No Publication Year"}} </td>
+  </ng-container> 
+  
+  <ng-container matColumnDef="cover_i">
+    <th mat-header-cell *matHeaderCellDef> Cover </th>
+    <td mat-cell *matCellDef="let element"> 
+        <img src="{{getCover(element.cover_i, true)}}" alt="{{element.title}}" 
+        width="36" height="50" (click)="openDialog(element.cover_i)"> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </mat-table>
+
     <mat-paginator *ngIf="books"
                (page)="handlePageEvent($event)"
                [length]="this.books.length"

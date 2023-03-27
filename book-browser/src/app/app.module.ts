@@ -14,7 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list'; 
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogCoverImageComponent } from './components/dialog-cover-image/dialog-cover-image.component';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import { MatPaginatorModule } from '@angular/material/paginator'; 
+import { MatTableModule } from '@angular/material/table'; 
+import { MatRadioModule } from '@angular/material/radio'; 
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FormsModule,
     MatGridListModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

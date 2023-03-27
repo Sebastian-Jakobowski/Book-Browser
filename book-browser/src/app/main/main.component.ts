@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { Book } from '../models/book-model';
+import { Component, ViewChild } from '@angular/core';
+import { Book, BookModel } from '../models/book-model';
 import { BookService } from '../services/book.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCoverImageComponent } from '../components/dialog-cover-image/dialog-cover-image.component';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-main',
@@ -16,7 +17,11 @@ export class MainComponent {
   pageSizeOptions = [10, 20, 50];
   pageStartIndex: number = 0;
   pageEndIndex: number = 50;
+  viewStyle: string = "grid";
+  displayedColumns: string[] = ['isbn', 'title', 'author_name', 'first_publish_year', 'cover_i'];
+  dataSource!: MatTableDataSource<Book>;
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private bookService: BookService, public dialog: MatDialog){
   }
@@ -27,6 +32,8 @@ export class MainComponent {
   showBooks(searchTerm: string): void {
     this.bookService.getBooks(searchTerm).then((books) => {
       this.books = Book.deserialize(books);
+      this.dataSource = new MatTableDataSource(this.books);
+      setTimeout(() => this.dataSource.paginator = this.paginator);    
     })
     .catch((reason) => console.log(reason));
   }
