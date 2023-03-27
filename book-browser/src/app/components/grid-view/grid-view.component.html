@@ -1,0 +1,27 @@
+<mat-grid-list cols="5" rowHeight="1.75:1" gutterSize="10">
+    <mat-grid-tile *ngFor="let book of books | slice:pageStartIndex:pageEndIndex">
+        <ul style="list-style-type: none; width: 100%; align-items: flex-start;">
+            <li>
+                <div style="float: right; margin-right: 10%;">
+                    <img src="{{getCover(book.cover_i, true)}}" alt="{{book.title}}" 
+                    width="36" height="50" (click)="openDialog(book.cover_i)">
+                </div>
+                <strong>Booktitle</strong>
+                <p>{{book.title}}</p>
+            </li>
+            <li>
+                <strong>Author</strong>
+                <p *ngIf="book.author_name">{{book.author_name}}</p>
+                <p *ngIf="!book.author_name">No name available<p>
+                </li>
+        </ul>            
+        </mat-grid-tile>
+</mat-grid-list>
+
+<mat-paginator *ngIf="books"
+(page)="handlePageEvent($event)"
+[length]="this.books.length"
+[pageSize]="50"
+[pageSizeOptions]="pageSizeOptions"
+aria-label="Select page">
+</mat-paginator>

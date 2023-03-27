@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +15,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogCoverImageComponent } from './components/dialog-cover-image/dialog-cover-image.component';
 import { MatPaginatorModule } from '@angular/material/paginator'; 
 import { MatTableModule } from '@angular/material/table'; 
-import { MatRadioModule } from '@angular/material/radio'; 
+import { MatRadioModule } from '@angular/material/radio';
+import { GridViewComponent } from './components/grid-view/grid-view.component'; 
+import { ListViewComponent } from './components/list-view/list-view.component'; 
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MainComponent,
     HeaderComponent,
     FooterComponent,
-    DialogCoverImageComponent
+    DialogCoverImageComponent,
+    GridViewComponent,
+    ListViewComponent
   ],
   imports: [
     BrowserModule,
